@@ -6,10 +6,13 @@ import static io.javalin.apibuilder.ApiBuilder.before;
 import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.post;
 
-import com.revature.project.controller.IndexController;
+import org.eclipse.jetty.webapp.WebAppContext;
+
+//import com.revature.project.controller.IndexController;
 
 import com.revature.project.controller.ProductController;
-import com.revature.project.controller.UserController;
+//import com.revature.project.controller.UserController;
+import com.revature.project.controller.ReimbursementController;
 import com.revature.project.dao.ProductDAO;
 import com.revature.project.dao.UserDAO;
 import com.revature.project.util.Filters;
@@ -25,15 +28,38 @@ public class App {
 
 	public static void main(String[] args) {
 		Javalin app = Javalin.create(config -> {
-            config.addStaticFiles("/public", Location.CLASSPATH);
+            config.addStaticFiles("src/main/webapp", Location.CLASSPATH);
             config.registerPlugin(new RouteOverviewPlugin("/routes"));
         }).start(HerokuUtil.getHerokuAssignedPort());
 		
+////		// 2. Creating the WebAppContext for the created content
+//				WebAppContext ctx = new WebAppContext();
+//			ctx.setResourceBase("src/main/webapp");
+////				ctx.setContextPath("/jetty-jsp-example");
+//				
+//				//3. Including the JSTL jars for the webapp.
+//				ctx.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*jstl.*\\.jar$");
+//			
+//				//4. Enabling the Annotation based configuration
+//				org.eclipse.jetty.webapp.Configuration.ClassList classlist = org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(app);
+//		        classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
+//		        classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
+//		        
+		      
+			
+		
 		app.routes(() -> {
-		app.get("/users", UserController.fetchAllUsernames);
-		app.get("/users/\\{id}", UserController.fetchById);
-		app.post("/users", UserController.addUser);
+//		app.get("/users", UserController.fetchAllUsernames);
+//		app.get("/users/\\{id}", UserController.fetchById);
+//		app.post("/users", UserController.addUser);
+			
+			app.get("/reimbursement", ReimbursementController.createReimbursement);
 		});
+		
+		
+//------------------------------------------------------------------------		
+		
+		
 		//app.routes(() -> {
 //            before(Filters.handleLocaleChange);
 //            before(LoginController.ensureLoginBeforeViewingProducts);
