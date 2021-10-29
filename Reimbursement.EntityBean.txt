@@ -22,51 +22,43 @@ public class Reimbursement {
 		super();
 	}
 
-	public Reimbursement(integer reimbursement_id, String reimbursementCategory,Double amount) {
+	public Reimbursement(int reimbursement_id, String reimbursementCategory,Double amount) {
 		super();
 		this.reimbursement_id = reimbursement_id;
 		this.category = category;
 		this.amount = amount;
 	}
 
-	public Course(int id, String name, String category, int duration) {
+	public Reimbursement(int reimbursement_id, String name, String category, Double amount) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.category = category;
-		this.duration = duration;
+		this.reimbursementCategory = reimbursementcategory;
+		this.amount = amount;
 	}
 
-	public int getId() {
-		return id;
-	}
+	public int getReimbursementId() {
+		return reimbursement;
+	} 
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getReimbursementCategory() {
+		return reimbursementCategory;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setReimbursementCategory (String reimbursementCategory) {
+		this.reimbursementCategory = reimbursementCategory;
 	}
 
-	public String getCategory() {
-		return category;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setAmount(Double amount) {  //fetch from here with JS
+		this.amount = amount;
 	}
 
 }
