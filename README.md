@@ -38,10 +38,10 @@ To-do list:
 
 Follow these steps to get started: 
 
-> First, start by cloning the repository with the following command in your terminal: git clone https://github.com/AustinWayneSanders/project1.git 
-> The database instance that was used when creating this project may not be avaible by the time of cloning this project, resulting in a null pointer exception. In this case, please follow the instructions regarding setting up the database environment with AWS: 
-> Once you have logged into your AWS console root account, click on services in the top right corner. This button is circled in white with the image below. 
-> ![Click Servies](Project1_image1.png)
+* First, start by cloning the repository with the following command in your terminal: git clone https://github.com/AustinWayneSanders/project1.git 
+* The database instance that was used when creating this project may not be avaible by the time of cloning this project, resulting in a null pointer exception. In this case, please follow the instructions regarding setting up the database environment with AWS: 
+* Once you have logged into your AWS console root account, click on services in the top right corner. This button is circled in white with the image below. 
+![Click Servies](project1_Image1.png)
 
 - All the `code` required to get started
 - Images of what it should look like
