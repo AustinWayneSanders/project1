@@ -42,9 +42,54 @@ Follow these steps to get started:
 * The database instance that was used when creating this project may not be avaible by the time of cloning this project, resulting in a null pointer exception. In this case, please follow the instructions regarding setting up the database environment with AWS: 
 * Once you have logged into your AWS console root account, click on services in the top right corner. This button is circled in white with the image below. 
 ![Click Servies](project1_Image1.png)
+*
+*
+*
+![Click RDS](project1_Image2.png)
+*
+*
+*
+![Click Create Database](project1_Image3.png)
+*
+*
+*
+![Select PostreSQL](project1_Image4.PNG)
+*
+*
+*
+![Edit the Settings](project1_image5.PNG)
+*
+*
+*
+![Select Public Access](project1_image6.PNG)
+*
+*
+*
+![Database Access Endpoint for Database Connection](project1_image7.png)
+*
+*
+*
+![Use the Access Endpoint from AWS to Configure Server Setting in PgAdmin](project1_image8.PNG)
+*
+*
+*
+![Create Employee and Reimbursement Table in the Following Location](project1_image9.PNG)
+*
+*
+*
+![Employee Table](project1_image10.PNG)
+*
+*
+*
+![Employee Table Column Properties](project1_image11.PNG)
+*
+*
+*
+![Reimbursement Table Column Properties](project1_image12.PNG)
+*
+*
+*
 
-- All the `code` required to get started
-- Images of what it should look like
 
 ## Usage
 
