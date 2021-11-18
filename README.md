@@ -14,7 +14,7 @@ are authorized to approve and deny requests for expense reimbursement.
 * HTML 
 * CSS 
 * JDBC 
-* Amazon RDS PostgreSQL 
+* Amazon RDS PostgreSQL
 * Javalin 
 * Maven 
 * JUnit4 
@@ -23,16 +23,19 @@ are authorized to approve and deny requests for expense reimbursement.
 ## Features
 
 List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* Navigation between home page, employee list, create employee, expense reimbursement list, and create reimbursement
+* Create Reimbursement
+* Create Employee
+* View List of Reimbursements
+* View List of Employees
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Expand to include delete (deny), update (approve) reimbursements
+* Expand to include delete and update employee 
+* Finish integration with Login page. 
 
 ## Getting Started
-   
+
 (include git clone command)
 (include all environment setup steps)
 
