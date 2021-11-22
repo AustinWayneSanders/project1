@@ -1,0 +1,211 @@
+<html lang="en">
+
+<!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+table {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+h1 {
+	text-align: center;
+	color: #006600;
+	font-size: xx-large;
+	font-family: 'Gill Sans', 'Gill Sans MT', ' Calibri', 'Trebuchet MS',
+		'sans-serif';
+}
+
+td {
+	background-color: #E4F5D4;
+	border: 1px solid black;
+}
+
+th, td {
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+td {
+	font-weight: lighter;
+}
+</style>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="reimbursement.html">Reimbursements</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="employees.html">Employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addReimbursement.html">Add Reimbursement</a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="addEmployee.html">Add Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>	
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+    <script type = "text/javascript">
+        $(document).ready(function () {
+            var employee = {};
+            var dynamicURL = "";
+            var methodName = "";
+            getAllEmployees();
+            $('#btnAddEmployee').click(function () {
+                employee.email = $('#txtEmail').val();
+                employee.password = $('#txtPassword').val();
+                employee.name = $('#txtName').val();
+                var employeeId = $('#txtId').val();
+                if(employeeId){
+                    //update it
+                    dynamicURL = "http://localhost:7090/employees/"+employeeId;
+                    methodName = "PUT";
+                }else{
+                    //save it
+                    dynamicURL = "http://localhost:7090/employeeForm";
+                    methodName = "POST";
+                }
+                var employeeObj = JSON.stringify(employee);
+                $.ajax({
+                    url: dynamicURL,
+                    method: methodName,
+                    data: employeeObj,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert('Saved successfully');
+                        getAllEmployees();
+                        reset();
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            })
+        })
+
+        function getAllEmployees() {
+            $.ajax({
+                url: "http://localhost:7090/employees",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var tableBody = $('#tblEmployee tbody');
+                    tableBody.empty();
+                    $(data).each(function (index, element) {
+                        tableBody.append('<tr><td>'+element.name+'</td><td>'+element.email+'</td><td><button onclick = "update('+element.eid+')">Update</button> | <button onclick = "deleteEmployee('+element.eid+')">Delete</button></td></tr>');
+                    })
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function deleteEmployee(eid){
+            $.ajax({
+                url: 'http://localhost:7090/employees/' + eid,
+                method: 'DELETE',
+                success: function () {
+                    alert('employee has been deleted');
+                    getAllEmployees();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function update(eid){
+            $.ajax({
+                url: 'http://localhost:7090/employees/' + eid,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#txtEmail').val(data.email);
+                    $('#txtPassword').val(data.password);
+                    $('#txtName').val(data.email);
+                    $('#txtId').val(data.eid);
+                    getAllEmployees();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function reset(){
+            $('#txtEmail').val('');
+            $('#txtPassword').val('');
+            $('#txtName').val();
+            $('#txtId').val();
+        }
+    </script>
+</head>
+<body>
+ <section>
+		<h2 align="center">Employees</h2>
+    
+        <table>
+            <tr>
+               <td>Employee ID</td>
+               <td><input type="number" id = "txtId"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id = "txtName"></td>
+            </tr>
+                <td>Email</td>
+                <td><input type="text" id = "txtEmail"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="text" id = "txtPassword"></td>
+            </tr>
+            
+            <tr>
+                <td colspan = "2"><input type="button" value="Add Employee" id="btnAddEmployee"></td>
+            </tr>
+        </table>
+        <table border = "1" id = "tblEmployee">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </section>
+</body>
+
+<!-- <div class="mb-5"> -->
+<!--       <a href="addEmployee.html" class="btn btn-primary btn-lg px-4">Add a new employee</a> -->
+<!-- </div> -->
+
+</html>

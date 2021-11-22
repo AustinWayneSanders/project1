@@ -1,0 +1,293 @@
+<html lang="en">
+
+<!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+table {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+h1 {
+	text-align: center;
+	color: #006600;
+	font-size: xx-large;
+	font-family: 'Gill Sans', 'Gill Sans MT', ' Calibri', 'Trebuchet MS',
+		'sans-serif';
+}
+
+td {
+	background-color: #E4F5D4;
+	border: 1px solid black;
+}
+
+th, td {
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+td {
+	font-weight: lighter;
+}
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="reimbursement.html">Reimbursements</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="employees.html">Employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addReimbursement.html">Add Reimbursement</a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="addEmployee.html">Add Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>			
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+    <script type = "text/javascript">
+        $(document).ready(function () {
+            var reimbursement = {};
+            var dynamicURL = "";
+            var methodName = "";
+            getAllReimbursements();
+            $('#btnAddReimbursement').click(function () {
+                reimbursement.reimbursementCategory = $('#txtReimbursement').val();
+                reimbursement.amount = $('#txtAmount').val();
+                reimbursement.status = $('#txtStatus').val();
+                var reimbursementId = $('#txtId').val();
+             	console.log(reimbursementId);
+                if(reimbursementId){
+                    //update it
+                    dynamicURL = "http://localhost:7090/reimbursement/"+reimbursementId;
+                    methodName = "PUT";
+                }else{
+                    //save it
+                    dynamicURL = "http://localhost:7090/reimbursementForm";
+                    methodName = "POST";
+                }
+                var reimbursementObj = JSON.stringify(reimbursement);
+                console.log(reimbursementObj);
+                $.ajax({
+                    url: dynamicURL,
+                    method: methodName,
+                    data: reimbursementObj,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert('Update Successful!');
+                        getAllReimbursements();
+                        reset();
+                    },
+                    error: function (error) {
+                        alert('Unable to complete transaction. Check to make sure the ID is valid');
+                    }
+                })
+            })
+        })
+
+        function getAllReimbursements() {
+            $.ajax({
+                url: "http://localhost:7090/reimbursement",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var tableBody = $('#tblReimbursement tbody');
+                    tableBody.empty();
+                    $(data).each(function (index, element) {
+                        tableBody.append('<tr><td>'+element.reimbursementCategory+'</td><td>'+element.amount+'</td><td>'+element.status+'</td><td><button onclick = "update('+element.id+')">Update</button> | <button onclick = "approve('+element.id+')">Approve</button> | <button onclick = "deny('+element.id+')">Deny</button> | <button onclick = "deleteReimbursement('+element.id+')">Delete</button></td></tr>');
+                    })
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function deleteReimbursement(id){
+            $.ajax({
+                url: 'http://localhost:7090/reimbursement/' + id,
+                method: 'DELETE',
+                success: function () {
+                    alert('reimbursement has been deleted');
+                    getAllReimbursements();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function update(id){
+            $.ajax({
+                url: 'http://localhost:7090/reimbursement/' + id,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                	$('#txtReimbursement').val(data.reimbursementCategory);
+                    $('#txtAmount').val(data.amount);
+                    $('#txtStatus').val(data.status);
+                    $('#txtId').val(data.id);
+                    getAllReimbursements();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        
+        function approve(id){
+        	
+        	var reimbursement = {};
+        	 $.ajax({
+                 url: 'http://localhost:7090/reimbursement/' + id,
+                 method: 'GET',
+                 dataType: 'json',
+                 success: function (data) {
+                	 reimbursement.reimbursementCategory = data.reimbursementCategory;
+                     reimbursement.amount = data.amount;
+                     reimbursement.status = 'approved'
+//                      reimbursement.id = id;
+                     var reimbursementObj = JSON.stringify(reimbursement);
+                     console.log(reimbursementObj);
+                     var id = data.id;
+                     console.log(id);
+                     applyStatusChange(reimbursementObj, id);
+                 },
+                 error: function () {
+                     alert("We're unable to process this approval");
+                     
+                 }
+             })
+        }
+        
+        function applyStatusChange(reimbursementObj, id){
+        	 $.ajax({
+                 url: 'http://localhost:7090/reimbursement/' + id,
+                 method: "PUT",
+                 data: reimbursementObj,
+                 contentType: 'application/json; charset=utf-8',
+                 success: function () {
+                     alert('Status Changed Successfully!');
+                     getAllReimbursements();
+                 },
+                 error: function (error) {
+                     alert(error);
+                 }
+             })
+        }
+        
+        
+        
+  function deny(id){
+        	
+        	var reimbursement = {};
+        	 $.ajax({
+                 url: 'http://localhost:7090/reimbursement/' + id,
+                 method: 'GET',
+                 dataType: 'json',
+                 success: function (data) {
+                	 reimbursement.reimbursementCategory = data.reimbursementCategory;
+                     reimbursement.amount = data.amount;
+                     reimbursement.status = 'denied'
+//                      reimbursement.id = id;
+                     var reimbursementObj = JSON.stringify(reimbursement);
+                     console.log(reimbursementObj);
+                     var id = data.id;
+                     console.log(id);
+                     applyStatusChange(reimbursementObj, id);
+                 },
+                 error: function () {
+                     alert("We're unable to process this denial");
+                     
+                 }
+             })
+        }
+        
+   
+        
+        
+        
+        function reset(){
+        	$('#txtReimbursement').val('');
+        	$('#txtAmount').val('');
+        	$('#txtStatus').val('');
+            $('#txtId').val('');
+        }
+    </script>
+</head>
+<body>
+   <section>
+		<h2 align="center">Reimbursements</h2>
+		<br></br>
+		<h4 align="center">Edit Reimbursements</h4>
+        <table>
+          <tr>
+               <td>Reimbursement ID</td>
+               <td><input type="number" id = "txtId"></td>
+            </tr>
+            <tr>
+                <td>Reimbursement Category</td>
+                <td><input type="text" id = "txtReimbursement"></td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td><input type="number" id = "txtAmount"></td>
+            </tr>
+             <tr>
+                <td>Status</td>
+                <td><input type="text" readonly id = "txtStatus"></td>
+            </tr>
+            
+            <tr>
+                <td colspan = "2"><input type="button" value="Edit Reimbursement" id="btnAddReimbursement"></td>
+            </tr>
+        </table>
+          <br></br>
+   		 <br></br>
+   		 <h4 align="center">List of Reimbursements</h4>
+        <table border = "1" id = "tblReimbursement">
+            <thead>
+                <tr>
+                    <th>Reimbursement Category</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+          
+    </section>
+
+</body>
+
+<!-- <a href="addReimbursement.html">Add Another Reimbursement</a> -->
+
+
+</html>
