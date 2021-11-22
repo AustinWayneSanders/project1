@@ -44,10 +44,10 @@ public class ReimbursementDAO {
 		close();
 	}
 
-	public static void update(int id, Reimbursement reimbursement) {
+	public static void update(Reimbursement reimbursement) {
 		session = connect();
-		session.beginTransaction();
-		session.save(reimbursement);
+		session.beginTransaction();	
+		session.update(reimbursement);
 		session.getTransaction().commit();
 		session.close();
 		close();
@@ -57,7 +57,7 @@ public class ReimbursementDAO {
 		session = connect();
 		session.beginTransaction();
 		Reimbursement reimbursement = session.find(Reimbursement.class, id);
-		session.remove(session);
+		session.remove(reimbursement);
 		session.getTransaction().commit();
 		session.close();
 		close();

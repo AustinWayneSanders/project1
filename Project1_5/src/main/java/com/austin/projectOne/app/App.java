@@ -14,86 +14,95 @@ import com.austin.projectOne.model.Employee;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 
-
 public class App {
 
 	public static void main(String[] args) {
 		Javalin app = Javalin.create(config -> {
+			config.enableCorsForAllOrigins();
 			config.addStaticFiles("/public", Location.CLASSPATH);
 		}).start(7090);
 
 		Logger logger = LoggerFactory.getLogger(App.class);
 
-		app.get("/index", ctx -> ctx.redirect("index.html"));
+		//app.get("/login", ctx -> ctx.redirect("login.html"));
 
-		List<Employee> employees = EmployeeDAO.readAll();
+		
+		
+		app.get("/login", ctx -> {
+			String email  = ctx.queryParam("email");
+			System.out.print(email);
+			String password = ctx.queryParam("password");
+			System.out.print(password);
+			long count = EmployeeDAO.findByCredentials(email, password);
+			System.out.print(count);
+			if (count == 1) {
+				ctx.status(200);
+				ctx.redirect("index.html");
+			}else {
+				ctx.redirect("login.html");
+			}
+			
+			
+					
+		});
+		
+		
+		app.get("/employees", ctx -> {
+			List<Employee> employees = EmployeeDAO.findAll();
+			ctx.jsonStream(employees);
+		});
 
-		app.get("/employees", ctx -> ctx.jsonStream(employees));
-
-		app.get("/employees/{eid}", ctx -> {
-			int eid = Integer.parseInt(ctx.pathParam("eid"));
-			Employee employee = EmployeeDAO.readById(eid);
+		app.get("/employee/{id}", ctx -> {
+			int id = Integer.parseInt(ctx.pathParam("id"));
+			Employee employee = EmployeeDAO.findById(id);
 			ctx.json(employee);
 		});
 
-		app.post("employees", ctx -> {
+		app.post("employee", ctx -> {
 			Employee employee = ctx.bodyAsClass(Employee.class);
-			//logger.info("This the student object from postman :" + employee);
+			logger.info("This the Employee object from postman :" + employee);
 			EmployeeDAO.save(employee);
 			ctx.status(201);
-			ctx.redirect("employees.html");
+//ctx.redirect("reimbursement.html");
 		});
 
 		app.get("employeeForm", ctx -> ctx.redirect("addEmployee.html"));
 
-		/*
-	 	private int eid;
-		private String email;
-		private String password;
-		private String name;
-
-	 * 
-	 */
-		
-		app.post("/employeeForm", ctx -> {
+		app.post("employeeForm", ctx -> {
 
 			String email = ctx.formParam("email");
 			String password = ctx.formParam("password");
 			String name = ctx.formParam("name");
+
 			Employee employee = new Employee(email, password, name);
-			
-			//logger.info("This the student object from postman :" + stu);
+			logger.info("This the Employee object from postman :" + employee);
 			EmployeeDAO.save(employee);
 			ctx.status(201);
-			ctx.redirect("employees.html");
+			ctx.redirect("reimbursement.html");
 		});
 
-		app.put("employees/{eid}", ctx -> {
-			int eid = Integer.parseInt(ctx.pathParam("eid"));
+		app.put("employee/{eid}", ctx -> {
+			int id = Integer.parseInt(ctx.pathParam("eid"));
 			Employee employee = ctx.bodyAsClass(Employee.class);
-			EmployeeDAO.update(eid, employee);
+			employee.setEid(id);
+			EmployeeDAO.update(employee);
 			ctx.status(200);
-			ctx.redirect("employees.html");
+//ctx.redirect("reimbursement.html");
 		});
 
-		app.delete("employees/{eid}", ctx -> {
-			int eid = Integer.parseInt(ctx.pathParam("eid"));
-			EmployeeDAO.delete(eid);
+		app.delete("employee/{eid}", ctx -> {
+			int id = Integer.parseInt(ctx.pathParam("eid"));
+			EmployeeDAO.delete(id);
 			ctx.status(200);
-			ctx.redirect("employees.html");
+//ctx.redirect("reimbursement.html");
 		});
 
-		List<Reimbursement> reimbursements = ReimbursementDAO.findAll();
+	
 
-		
-		/*
-		private int riembursement_id;
-		private String riembursementCategory;
-		private Double amount;
-		*/
-		
-		
-		app.get("/reimbursement", ctx -> ctx.jsonStream(reimbursements));
+		app.get("/reimbursement", ctx -> {
+			List<Reimbursement> reimbursements = ReimbursementDAO.findAll();
+			ctx.jsonStream(reimbursements);
+		});
 
 		app.get("/reimbursement/{id}", ctx -> {
 			int id = Integer.parseInt(ctx.pathParam("id"));
@@ -106,19 +115,19 @@ public class App {
 //			logger.info("This the student object from postman :" + employee);
 			ReimbursementDAO.save(reimbursement);
 			ctx.status(201);
-			ctx.redirect("reimbursement.html");
+			// ctx.redirect("reimbursement.html");
 		});
-		
+
 		app.get("reimbursementForm", ctx -> ctx.redirect("addReimbursement.html"));
 
 		app.post("reimbursementForm", ctx -> {
 
 			String reimbursementCategory = ctx.formParam("reimbursementCategory");
 			Double amount = Double.parseDouble(ctx.formParam("amount"));
-			
-	
-			Reimbursement reimbursement = new Reimbursement(reimbursementCategory, amount);
-			//logger.info("This the Course object from postman :" + course);
+			String status = "pending";
+
+			Reimbursement reimbursement = new Reimbursement(reimbursementCategory, amount, status);
+			logger.info("This the Reimbursement object from postman :" + reimbursement);
 			ReimbursementDAO.save(reimbursement);
 			ctx.status(201);
 			ctx.redirect("reimbursement.html");
@@ -127,18 +136,18 @@ public class App {
 		app.put("reimbursement/{id}", ctx -> {
 			int id = Integer.parseInt(ctx.pathParam("id"));
 			Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
-			ReimbursementDAO.update(id, reimbursement);
+			reimbursement.setId(id);
+			ReimbursementDAO.update(reimbursement);
 			ctx.status(200);
-			ctx.redirect("reimbursement.html");
+			// ctx.redirect("reimbursement.html");
 		});
 
 		app.delete("reimbursement/{id}", ctx -> {
 			int id = Integer.parseInt(ctx.pathParam("id"));
 			ReimbursementDAO.delete(id);
 			ctx.status(200);
-			ctx.redirect("reimbursement.html");
+			// ctx.redirect("reimbursement.html");
 		});
 
 	}
-
 }
