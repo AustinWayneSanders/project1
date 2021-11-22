@@ -28,11 +28,12 @@ List of features ready and TODOs for future development
 * Create Employee
 * View List of Reimbursements
 * View List of Employees
+* Delete Employee or Reimbursement
+* Update Employee or Reimbursement
+* Delete or approve Reimbursement
 
-To-do list:
-* Expand to include delete (deny), update (approve) reimbursements
-* Expand to include delete and update employee 
-* Finish integration with Login page. 
+To-do list: 
+* Work on creating a more secure login process, such as hiding url query param and add authentication guards 
 
 ## Getting Started
 
@@ -97,7 +98,7 @@ Follow these steps to get started:
 
 ## Usage
 
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
+> 
 
 ## Contributors and Tasks
 
