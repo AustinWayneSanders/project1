@@ -10,7 +10,7 @@
 		<property name="hbm2ddl.auto">update</property>
 		<!-- Database Connection Settings -->
 		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://projectonedb.ctc7aq5bma3z.us-east-2.rds.amazonaws.com:5432/postgres</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://database-1.ctc7aq5bma3z.us-east-2.rds.amazonaws.com:5432/postgres</property>
 		<property name="hibernate.connection.username">postgres</property>
 		<property name="hibernate.connection.password">password</property>
 		 <!-- JDBC connection pool (use the built-in) -->
@@ -28,10 +28,10 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-<!--         <property name="hbm2ddl.auto">create</property> -->
-
+        <!--property name="hbm2ddl.auto">create</property> -->
 
 		<mapping class="com.austin.projectOne.model.Reimbursement"/>
+		<mapping class="com.austin.projectOne.model.Employee"/>
 	</session-factory>
 </hibernate-configuration>
 

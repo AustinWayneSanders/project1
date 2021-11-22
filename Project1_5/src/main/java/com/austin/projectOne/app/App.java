@@ -78,7 +78,7 @@ public class App {
 			logger.info("This the Employee object from postman :" + employee);
 			EmployeeDAO.save(employee);
 			ctx.status(201);
-			ctx.redirect("reimbursement.html");
+			ctx.redirect("employees.html");
 		});
 
 		app.put("employee/{eid}", ctx -> {
