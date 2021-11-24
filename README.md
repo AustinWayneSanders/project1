@@ -66,14 +66,17 @@ Follow these steps to get started:
 >
 > You can find the endpoint and port number for you database when you click the link to your database instance. This information will be used to establish the connection with PGadmin. 
 >
-![Database Access Endpoint for Database Connection](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image7.PNG)
+![Database Access Endpoint for Database Connection](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image7.png)
 >
 > In PgAdmin, create a new server. Copy and past your Amazon database instance endpoint to the host text box on the connection tab. The default port number should be the port number for postgreSQL. If not, change the port number to 5432. 
 >
 ![Use the Access Endpoint from AWS to Configure Server Setting in PgAdmin](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image8.PNG)
->
+
+
+> Next, we will create the database tables. You may create the tables manually by continuing the instructions or by executing "projectoneDBScript.sql" located in this repository. 
+
 > Create an Employee and Reimbursement table in the following location: 
->
+
 ![Create Employee and Reimbursement Table in the Following Location](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image9.PNG)
 >
 > Create an employee table.
