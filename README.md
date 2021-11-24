@@ -42,63 +42,77 @@ Follow these steps to get started:
 * First, start by cloning the repository with the following command in your terminal: git clone https://github.com/AustinWayneSanders/project1.git 
 * The database instance that was used when creating this project may not be avaible by the time of cloning this project, resulting in a null pointer exception. In this case, please follow the instructions regarding setting up the database environment with AWS. 
 > Once you have logged into your AWS console root account, click on services in the top right corner. This button is circled in white with the image below. 
-![Click Servies](project1_Image1.png)
+![Click Services](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image1.png)
 >
 > After clicking services, a new menu will appear with a list of Amazon's services. Click the one that is title "RDS." It is cicled in the image below.
 > 
-![Click RDS](project1_Image2.png)
+![Click RDS](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image2.png)
 >
 >Once on the RDS page, there is an option near the bottom the screen that says "Create Database". Click this option to start the process of creating a new instance. 
 >
-![Click Create Database](project1_Image3.png)
+![Click Create Database](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image3.png)
 >
 >This project is configured to communicate with postgreSQL, so select that database. Make sure to select postreSQL ll.13-R1 as the version number. 
 >
-![Select PostreSQL](project1_Image4.PNG)
+![Select PostreSQL](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image4.png)
 >
 >Keep the database instance identifier as database-1, keep the master name as postgres, and create the password to be "password". It is acceptable to change other settings, however the default settings will leave you in the free tier. 
 >
-![Edit the Settings](project1_image5.PNG)
+![Edit the Settings](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image5.png)
 >
 > Make sure that you enable public access to the database. Without this option enabled, the application will not be able to communicate with your database instance. 
 >
-![Select Public Access](project1_image6.PNG)
+![Select Public Access](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image6.png)
 >
 > You can find the endpoint and port number for you database when you click the link to your database instance. This information will be used to establish the connection with PGadmin. 
 >
-![Database Access Endpoint for Database Connection](project1_image7.png)
+![Database Access Endpoint for Database Connection](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image7.png
 >
 > In PgAdmin, create a new server. Copy and past your Amazon database instance endpoint to the host text box on the connection tab. The default port number should be the port number for postgreSQL. If not, change the port number to 5432. 
 >
-![Use the Access Endpoint from AWS to Configure Server Setting in PgAdmin](project1_image8.PNG)
+![Use the Access Endpoint from AWS to Configure Server Setting in PgAdmin](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image8.png)
 >
 > Create an Employee and Reimbursement table in the following location: 
 >
-![Create Employee and Reimbursement Table in the Following Location](project1_image9.PNG)
+![Create Employee and Reimbursement Table in the Following Location](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image9.png)
 >
 > Create an employee table.
 >
-![Employee Table](project1_image10.PNG)
+![Employee Table](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image10.png)
 >
 > Create the following employee column properties. The application is case sensitive. Ensure that the column names and data types match exactly as displayed in the image below:
 >
-![Employee Table Column Properties](project1_image11.PNG)
+![Employee Table Column Properties](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image11.png)
 >
 > Repeat the process above with the reimbursement table. 
 >
-![Reimbursement Table Column Properties](project1_image12.PNG)
+![Reimbursement Table Column Properties](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image12.png)
 >
 > Open project1_5 in Maven and right click on the project name. Select "run as java project". You will likely be prompted to select a starter class. Select the one highlighted in the image below. 
 >
-![Select Startup Class](project1_image13.PNG)
+![Select Startup Class](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image13.png)
 >
 > After starting the application. Navigate to http://localhost:7090 in you browser. You should see the start up page as illustrated below:
 >
-![Home Page](project1_image14.PNG)
+![Home Page](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image14.png)
 
 ## Usage
 
-> 
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image15.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image16.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image17.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image18.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image19.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image20.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image21.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image22.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image23.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image24.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image25.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image26.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image27.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image28.png)
+![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image29.png)
 
 ## Contributors and Tasks
 
