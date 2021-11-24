@@ -9,7 +9,7 @@ are authorized to approve and deny requests for expense reimbursement.
 
 ## Technologies Used
 
-* Java Version 1.8
+* Java Version 8
 * JavaScript 
 * HTML 
 * CSS 
@@ -41,10 +41,10 @@ Follow these steps to get started:
 
 * First, start by cloning the repository with the following command in your terminal: git clone https://github.com/AustinWayneSanders/project1.git 
 * The database instance that was used when creating this project may not be avaible by the time of cloning this project, resulting in a null pointer exception. In this case, please follow the instructions regarding setting up the database environment with AWS. 
-> Once you have logged into your AWS console root account, click on services in the top right corner. This button is circled in white with the image below. 
+> Once you have logged into your AWS console root account, click on services in the top left corner. This button is circled in white with the image below. 
 ![Click Services](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image1.png)
 >
-> After clicking services, a new menu will appear with a list of Amazon's services. Click the one that is title "RDS." It is cicled in the image below.
+> After clicking services, a new menu will appear with a list of Amazon's services. Click the one that is title "RDS." It is circled in the image below.
 > 
 ![Click RDS](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_Image2.png)
 >
@@ -98,10 +98,6 @@ Follow these steps to get started:
 
 ## Usage
 
-![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image15.PNG)
-![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image16.PNG)
-![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image17.PNG)
-![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image18.PNG)
 ![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image19.PNG)
 ![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image20.PNG)
 ![](https://github.com/AustinWayneSanders/project1/blob/main/Project1_Demo_Images/project1_image21.PNG)
