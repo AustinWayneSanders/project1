@@ -38,6 +38,7 @@ public class App {
 			if (count == 1) {
 				ctx.status(200);
 				ctx.redirect("index.html");
+				
 			}else {
 				ctx.redirect("login.html");
 			}

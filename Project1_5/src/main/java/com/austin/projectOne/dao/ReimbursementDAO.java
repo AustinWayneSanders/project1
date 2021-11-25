@@ -10,10 +10,26 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.austin.projectOne.model.Reimbursement;
 
+import com.austin.projectOne.dao.ReimbursementDAO;
+
 public class ReimbursementDAO {
 
 	private static SessionFactory sessionFactory = null;
 	private static Session session = null;
+	
+	private static ReimbursementDAO rdao = null;
+
+	private ReimbursementDAO() {
+		super();
+	}
+
+	public static ReimbursementDAO getRdao() {
+		if (rdao == null)
+			rdao = new ReimbursementDAO();
+
+		return rdao;
+	}
+
 
 	public static List<Reimbursement> findAll() {
 		session = connect();
@@ -35,13 +51,14 @@ public class ReimbursementDAO {
 		return reimbursement;
 	}
 
-	public static void save(Reimbursement reimbursement) {
+	public static Reimbursement save(Reimbursement reimbursement) {
 		session = connect();
 		session.beginTransaction();
 		session.save(reimbursement);
 		session.getTransaction().commit();
 		session.close();
 		close();
+		return reimbursement;
 	}
 
 	public static void update(Reimbursement reimbursement) {
@@ -53,7 +70,7 @@ public class ReimbursementDAO {
 		close();
 	}
 
-	public static void delete(int id) {
+	public static boolean delete(int id) {
 		session = connect();
 		session.beginTransaction();
 		Reimbursement reimbursement = session.find(Reimbursement.class, id);
@@ -61,6 +78,7 @@ public class ReimbursementDAO {
 		session.getTransaction().commit();
 		session.close();
 		close();
+		return true;
 	}
 
 	public static Session connect() {
